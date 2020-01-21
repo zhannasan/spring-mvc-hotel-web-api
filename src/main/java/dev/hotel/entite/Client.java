@@ -1,10 +1,14 @@
 package dev.hotel.entite;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
+@Entity
 public class Client extends BaseEntite {
 
-
+	@Column(unique = true)
     private String nom;
-
+	@Column(unique = true)
     private String prenoms;
 
     public Client() {

@@ -2,8 +2,13 @@ package dev.hotel.entite;
 
 import java.util.UUID;
 
-public class BaseEntite {
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
+@MappedSuperclass
+public class BaseEntite {
+	@Id
+	@org.hibernate.annotations.Type(type = "uuid-char")
     private UUID uuid;
 
     public BaseEntite() {

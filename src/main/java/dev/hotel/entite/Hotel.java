@@ -1,5 +1,8 @@
 package dev.hotel.entite;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Hotel extends BaseEntite {
 
     private String nom;

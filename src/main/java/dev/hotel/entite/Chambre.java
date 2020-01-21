@@ -1,9 +1,14 @@
 package dev.hotel.entite;
 
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Chambre extends BaseEntite {
 
     private String numero;
     private Float surfaceEnM2;
+	@ManyToOne
     private Hotel hotel;
 
     public Chambre() {
