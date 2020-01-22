@@ -10,4 +10,6 @@ import dev.hotel.entite.Chambre;
 @Repository
 public interface ChambreRepository extends JpaRepository<Chambre, UUID> {
 
+	Chambre findByNumero(String numero);
+
 }

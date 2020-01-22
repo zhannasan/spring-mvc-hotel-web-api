@@ -9,7 +9,7 @@ public class HotelWebApiApplication {
 
 	public static void main(String[] args) {
 		ConfigurableApplicationContext context = SpringApplication.run(HotelWebApiApplication.class, args);
-		// Runnable exec = context.getBean(InsererChambre.class);
+		// Runnable exec = context.getBean(InsererReservation.class);
 		// exec.run();
 	}
 
