@@ -1,5 +1,6 @@
 package dev.hotel.controller;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -10,10 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.hotel.dto.ReservationDTO;
@@ -45,8 +46,8 @@ public class ReservationController {
 		this.clientRepository = clientRepository;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	@ResponseBody
+	@PostMapping(path = "creer")
+	// @ResponseBody
 	public ResponseEntity<String> addReservation(@RequestBody ReservationDTO reservationIn) {
 		try {
 			ModelMapper modelMapper = new ModelMapper();
@@ -70,7 +71,7 @@ public class ReservationController {
 			Reservation res = modelMapper.map(reservationIn, Reservation.class);
 			this.reservationRepository.save(res);
 
-			return ResponseEntity.status(HttpStatus.CREATED).body("Reservation created.");
+			return ResponseEntity.status(HttpStatus.CREATED).body("Reservation" + res + " created.");
 
 		} catch (EntityExistsException e) {
 			LOG.error("No entity found");
@@ -78,7 +79,7 @@ public class ReservationController {
 			}
 	}
 
-	@RequestMapping(method = RequestMethod.GET)
+	@GetMapping
 	// @ResponseBody
 	public List<Reservation> returnAllReservationList() {
 		try {
@@ -87,7 +88,7 @@ public class ReservationController {
 
 		} catch (EntityExistsException e) {
 			LOG.error("No Hotel found");
-			return null;
+			return Collections.emptyList();
 		}
 
 	}

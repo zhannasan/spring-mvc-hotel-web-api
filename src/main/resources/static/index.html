@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-tofit=
+	no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="style.css">
+<title>Bordmer - Book</title>
+</head>
+<body>
+	<header> </header>
+
+	<div class=container-fluid>
+		<div class="row mt-3">
+			<div class="col-10 offset-1" id="hotel">
+				
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-10 offset-1">
+				<h2>New reservation</h2>
+			</div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-10 offset-1">
+				<form name="createReservForm" id="createReservForm"
+					action="reservation" method="post">
+
+					<div class="row mt-3">
+						<div class="col-10 offset-1">
+							<h3>Clients</h3>
+						</div>
+					</div>
+
+					<div class="form-group row mt-2">
+						<div
+							class="col-12 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 text-right">
+							<label class="control-label" for="clientSelect">Select
+								a Client</label>
+						</div>
+						<div class="col-12 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-xs-12">
+							<div class="form-select">
+								<select class="form-control" id="clientSelect">
+
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-10 offset-1">
+							<div class="row mt-3">
+								<h3>Available rooms</h3>
+							</div>
+							<div class="col-12 col-xl-6 col-lg-6 col-md-8 col-sm-8 col-xs-12">
+								<div class="form-check pl-0">
+									<ul id="chkboxLi">
+
+									</ul>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row mt-3">
+
+						<div class="col-3 offset-1 text-right">
+							<label class="control-label" for="formCtrlDate">Check-in
+								date</label>
+						</div>
+						<div class="col-5">
+							<input type="date" class="form-control" name="dateDebut"
+								id="formDateDebut">
+						</div>
+
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-3 offset-1 text-right">
+							<label class="control-label" for="formCtrlDate">Check-out
+								date</label>
+						</div>
+						<div class="col-5">
+							<input type="date" class="form-control" name="dateDebut"
+								id="formDateDebut">
+						</div>
+					</div>
+					<div class="row mt-3">
+						<div class="col-3 offset-1 text-right">
+							<button type="submit" class="btn btn-primary"
+								name="reserve" onclick="form_submit()"
+								value="submit" id="reserveBtn">Reserve</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+	<script type="text/javascript" src="index.js"></script>
+	</script>
+	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+		integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+		integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+		crossorigin="anonymous"></script>
+</body>
+</html>

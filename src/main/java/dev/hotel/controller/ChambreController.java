@@ -7,8 +7,9 @@ import javax.persistence.EntityNotFoundException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.hotel.entite.Chambre;
@@ -30,11 +31,13 @@ public class ChambreController {
 	}
 
 
-	@RequestMapping(method = RequestMethod.GET)
-	// @ResponseBody
+	@GetMapping(path = "all")
+	@ResponseBody
 	public List<Chambre> returnAllClientList() {
 		try {
 			List<Chambre> chambres = this.chambreRepository.findAll();
+			// List<Chambre> sortedChambre = Collections.sort(chambres, new
+			// ComparatorNumero());
 			return chambres;
 		} catch (EntityNotFoundException e) {
 			LOG.error("List chambres is empty.");
