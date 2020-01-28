@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,9 +34,8 @@ public class ReservationController {
 		return this.reservationService.returnReservations();
 	}
 
-	@PostMapping// (consumes = MediaType.APPLICATION_JSON_VALUE, produces =
-				// MediaType.APPLICATION_JSON_VALUE)
-	(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@PostMapping // (consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+					// produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public ResponseEntity<Reservation> addReservation(ReservationDTO reservationIn) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.reservationService.addReservation(reservationIn));
 	}
