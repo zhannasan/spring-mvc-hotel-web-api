@@ -7,12 +7,11 @@
 	content="width=device-width, initial-scale=1, shrink-tofit=
 	no">
 <!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="bootstrap-4.4.1-dist/css/bootstrap.css">
 
 <link rel="stylesheet" type="text/css" href="style.css">
+<script type="text/javascript" src="index.js"></script>
+
 <title>Bordmer - Book</title>
 </head>
 <body>
@@ -20,85 +19,87 @@
 
 	<div class=container-fluid>
 		<div class="row mt-3">
-			<div class="col-10 offset-1" id="hotel">
-				
+			<div class="col-10 offset-1 " id="hotel"></div>
+		</div>
+		<div class="row">
+			<div class="col-10 offset-1" id="stars"></div>
+		</div>
+		<div class="row mt-3">
+			<div class="col-10 offset-1">
+				<h3>Create a new reservation</h3>
 			</div>
 		</div>
 		<div class="row mt-3">
 			<div class="col-10 offset-1">
-				<h2>New reservation</h2>
-			</div>
-		</div>
-		<div class="row mt-3">
-			<div class="col-10 offset-1">
-				<form name="createReservForm" id="createReservForm"
-					action="reservation" method="post">
+				<form name="createReserveForm" id="createReservForm"	action="reservation" method="post">
 
 					<div class="row mt-3">
-						<div class="col-10 offset-1">
-							<h3>Clients</h3>
+						<div class="col-10 offset-2">
+							<h4>Clients</h4>
 						</div>
 					</div>
 
 					<div class="form-group row mt-2">
-						<div
-							class="col-12 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 text-right">
-							<label class="control-label" for="clientSelect">Select
-								a Client</label>
+						<div class="col-12 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 text-right">
+							<label class="control-label" for="clientSelect">Select a Client</label>
 						</div>
 						<div class="col-12 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-xs-12">
 							<div class="form-select">
 								<select class="form-control" id="clientSelect">
-
 								</select>
 							</div>
 						</div>
 					</div>
 
 					<div class="row mt-3">
+						<div class="col-10 offset-2">
+								<h4>Available rooms</h4>
+						</div>
+					</div>
+					<div class="row mt-3">
+					<div class="col-12 col-xl-4 col-lg-4 col-md-4 col-sm-4 col-xs-12 text-right"></div>
+					<div class="col-12 col-xl-3 col-lg-3 col-md-3 col-sm-4 col-xs-12">
+						<div class="form-checkbox">
+							<ul id="chkboxLi">
+							<div class="form-check pl-0" id="options">
+							</div>
+							</ul>
+						</div>
+					</div>
+					</div>
+					
+
+					<div class="row mt-3">
+
+						<div class="col-3 offset-1 text-right">
+							<label class="control-label" for="formCtrlDate">Check-in date</label>
+						</div>
+						<div class="col-5">
+							<input type="date" class="form-control" name="dateDebut" id="formDateDebut">
+						</div>
+
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-3 offset-1 text-right">
+							<label class="control-label" for="formCtrlDate">Check-out date</label>
+						</div>
+						<div class="col-5">
+							<input type="date" class="form-control" name="dateFin" id="formDateFin">
+						</div>
+					</div>
+
+					<div class="row mt-3">
+						<div class="col-3 offset-1 ">
+							<button type="button" id="show" onclick=" getData()">Get</button>
+						</div>
+						<input type="text" size="30" name="display" id="display" />
+					</div>
+
+					<div class="row mt-3">
 						<div class="col-10 offset-1">
-							<div class="row mt-3">
-								<h3>Available rooms</h3>
-							</div>
-							<div class="col-12 col-xl-6 col-lg-6 col-md-8 col-sm-8 col-xs-12">
-								<div class="form-check pl-0">
-									<ul id="chkboxLi">
-
-									</ul>
-
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="row mt-3">
-
-						<div class="col-3 offset-1 text-right">
-							<label class="control-label" for="formCtrlDate">Check-in
-								date</label>
-						</div>
-						<div class="col-5">
-							<input type="date" class="form-control" name="dateDebut"
-								id="formDateDebut">
-						</div>
-
-					</div>
-
-					<div class="row mt-3">
-						<div class="col-3 offset-1 text-right">
-							<label class="control-label" for="formCtrlDate">Check-out
-								date</label>
-						</div>
-						<div class="col-5">
-							<input type="date" class="form-control" name="dateDebut"
-								id="formDateDebut">
-						</div>
-					</div>
-					<div class="row mt-3">
-						<div class="col-3 offset-1 text-right">
-							<button type="submit" class="btn btn-primary"
-								name="reserve" onclick="form_submit()"
-								value="submit" id="reserveBtn">Reserve</button>
+							<button type="submit" class="btn btn-primary float-right" name="reserve"
+								onclick="formSubmit()" value="submit" id="reserveBtn">Book</button>
 						</div>
 					</div>
 				</form>
@@ -108,8 +109,7 @@
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
-	<script type="text/javascript" src="index.js"></script>
-	</script>
+
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
 		integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
 		crossorigin="anonymous"></script>

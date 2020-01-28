@@ -1,14 +1,16 @@
 package dev.hotel.entite;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Client extends BaseEntite {
-
-	@Column(unique = false)
+	@NotEmpty
+	@Size(min = 2, max = 50)
     private String nom;
-	@Column(unique = false)
+	@NotEmpty
+	@Size(min = 2)
     private String prenoms;
 
     public Client() {

@@ -1,0 +1,7 @@
+#chkboxLi{
+	list-style-type: none;
+}
+#hotel, #stars{
+	text-align: center;
+	display: inline-block;
+}

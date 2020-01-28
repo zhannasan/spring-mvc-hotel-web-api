@@ -1,82 +1,63 @@
 package dev.hotel.controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.EntityExistsException;
+import javax.validation.Valid;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import dev.hotel.entite.Client;
-import dev.hotel.repository.ClientRepository;
+import dev.hotel.service.ClientService;
 
 @RestController
 @RequestMapping("client")
 public class ClientController {
-	private static Logger LOG = LoggerFactory.getLogger(ClientController.class);
-	private ClientRepository clientRepository;
+
+	private ClientService clientService;
 
 	/**
-	 * @param clientRepository
+	 * @param clientService
 	 */
-	public ClientController(ClientRepository clientRepository) {
+	public ClientController(ClientService clientService) {
 		super();
-		this.clientRepository = clientRepository;
+		this.clientService = clientService;
 	}
 
-	@GetMapping(path = "all")
-	@ResponseBody
-	public List<Client> returnAllClientList() {
-		List<Client> clients = this.clientRepository.findAll();
-		if (clients.isEmpty() || clients == null) {
-			clients = this.clientRepository.findAll();
-		}
-		return clients;
+	@GetMapping
+	public List<Client> returnClients() {
+		return this.clientService.returnClients();
 	}
 
-	@RequestMapping(method = RequestMethod.GET, params = "nom")
-	// @ResponseBody
-	public List<Client> returnClientByName(@RequestParam("nom") String nom) {
-		List<Client> clients = this.clientRepository.findByNom(nom);
-		if (!clients.isEmpty()) {
-			clients = this.clientRepository.findByNom(nom);
-			for(Client c : clients){
-				c.setNom(c.getNom().toUpperCase());
-			}
-		}
-		return clients;
+	@GetMapping(params = "nom")
+	public List<Client> clientByName(@RequestParam("nom") String nom) {
+		return this.clientService.clientByName(nom);
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	// @ResponseBody
-	public ResponseEntity<String> addClient(@RequestBody Client clientIn) {
-		try {
-			Client client = this.clientRepository.findByNomAndPrenoms(clientIn.getNom(), clientIn.getPrenoms());
-			if (client == null) {
-				client = new Client(clientIn.getNom(), clientIn.getPrenoms());
-				this.clientRepository.save(client);
-				return ResponseEntity.status(HttpStatus.CREATED)
-					.body("The client " + client.toString() + " has been successfully added.");
-			} else {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-						.body("The client " + clientIn.getNom() + " " + clientIn.getPrenoms() + " already exists.");
-			}
-		} catch (EntityExistsException e) {
-			LOG.error("No client found");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body("No client found.");
-		}
+	public UUID addClient(@RequestBody @Valid Client clientIn) {
+		return this.clientService.addClient(clientIn);
+	}
+	
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	public ResponseEntity<?> validationException(MethodArgumentNotValidException ex) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+	}
+	
+	@ExceptionHandler(value = { EntityExistsException.class })
+	public ResponseEntity<String> clientPresent() {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("The client with this name already exists.");
 	}
 
 }

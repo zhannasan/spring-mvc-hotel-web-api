@@ -6,8 +6,9 @@ Function.prototype.extend = function(fn) {
   };
 };
 
-window.onload = function clientSelector(){
-	fetch('/client/all')
+window.onload = 
+function clientSelector(){
+	fetch('/client')
 	    .then(function(response) {
 	        if (!response.ok) {
 	        	throw Error(response.statusText);
@@ -26,8 +27,9 @@ window.onload = function clientSelector(){
 	}
 
 
-window.onload = window.onload.extend(function roomSelector(){
-    fetch('/chambre/all')
+window.onload = window.onload.extend(
+function roomSelector(){
+    fetch('/chambre')
     .then(function(response) {
         if (!response.ok) {
         	throw Error(response.statusText);
@@ -35,33 +37,61 @@ window.onload = window.onload.extend(function roomSelector(){
         return response.json();
         })
         .then(function(tableChambre) {
-        	
-            var liChambre = tableChambre.map(function(chambre){
-            	// var hotel= chambre.hotel;
-       	    	return ('<li><input type="checkbox" class="chambreCheckbox" id="'+chambre.uuid+'" >'+
-				'<label class="custom-control-label" for="'+chambre.uuid+'">'+chambre.numero+' '+chambre.surfaceEnM2+'sqm</label></li>');
+            var listChambre = tableChambre.map(function(chambre){
+       	    	return ('<li><div><input type="checkbox" class="chambreCheckbox" id="'+chambre.uuid+'" >'+
+				'<label class="chambrelabel" for="'+chambre.uuid+'" value="'+chambre.uuid+'"> '+chambre.numero+' - '+chambre.surfaceEnM2+'sqm</label></div></li>');
             }).join('')
-           
-          /*  var hotel = tableChambre.map(function(hotel){
-            	return '<h1 id='+hotel.id+'>'+hotel.nom+'</h1>';
-            	}).join('')
-            */
-            document.querySelector('#chkboxLi').innerHTML = liChambre;
-           // document.querySelector('#hotel').innerHTML = hotel;
-	/*	}).then(function(tableChambre){
-			 var hotel= tableChambre.map(function(hotel){
-			return '<h1 id='+hotel.id+'>'+hotel.nom+'</h1>';
-		document.querySelector('#hotel').innerHTML = hotel;*/
+          document.querySelector('#options').innerHTML =listChambre ;
+          
+            let hotel = tableChambre.map(chambre=>chambre.hotel);
+            document.querySelector('#hotel').innerHTML = '<h1>'+hotel[0].nom+'</h1>';
+
+            	var star='';
+            	for(var i=0; i<hotel[0].nombreEtoiles;i++){
+            		star+='*';
+            	}
+            document.querySelector('#stars').innerHTML = '<h1>'+star+'</h1>';
+            
 		}).catch(function(error) {
         console.log('An error has occured : ', error);
         });
 })
 
-function ajoutBDD(){
-	var resa ={
-			
+function getData(){
+	var clientId = document.getElementById('clientSelect').value;
+	var chambresId=[]; 
+	var checkBoxes = document.querySelectorAll('input[type="checkbox"]');
+	var j =0;
+	for(var i=0; checkBoxes[i]; ++i){
+	      if(checkBoxes[i].checked){
+	    	  chambresId[j] = checkBoxes[i].id;
+	        j++;
+	      }
 	}
+	var startDate = document.getElementById('formDateDebut').value;
+	var endDate = document.getElementById('formDateFin').value;
+	const data = {dateDebut: startDate, dateFin: endDate,clientUuid: clientId, chambreUuid : chambresId}
+	console.log(data)
 }
 
-fetch('reservations',{method: 'POST', body: ''})
+function formSubmit(){
+	const form = document.getElementById('createReservForm');
+	form.addEventListener('submit', function(e){
+		e.preventDefault();
+		
+		const formData = new FormData(this);
+		fetch('/reservation', {
+			  method: 'post',
+			  body: formData,
+			})
+			.then((response) => response.text())
+			.then((text) => {
+			  console.log('Success:', text);
+			})
+			.catch((error) => {
+			  console.error('Error:', error);
+			});
+	})
 
+	
+}

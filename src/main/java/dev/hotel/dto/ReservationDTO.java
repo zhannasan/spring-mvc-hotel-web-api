@@ -1,15 +1,18 @@
 package dev.hotel.dto;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import dev.hotel.entite.BaseEntite;
 
 public class ReservationDTO extends BaseEntite {
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+	// DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateDebut;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateFin;
 	private UUID clientUuid;
 	private List<UUID> chambreUuid;
