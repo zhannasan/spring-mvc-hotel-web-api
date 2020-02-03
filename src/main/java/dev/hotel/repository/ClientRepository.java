@@ -12,6 +12,8 @@ public interface ClientRepository extends JpaRepository<Client, UUID> {
 
 	List<Client> findByNom(String nom);
 
+	// List<Client> findByNom(List<String> noms);
+
 	@Query("Select c FROM Client c where nom=?1 AND prenoms=?2")
 	Client findByNomAndPrenoms(String nom, String prenoms);
 

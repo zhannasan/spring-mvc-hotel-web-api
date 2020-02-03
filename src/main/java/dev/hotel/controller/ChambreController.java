@@ -10,7 +10,7 @@ import dev.hotel.entite.Chambre;
 import dev.hotel.service.ChambreService;
 
 @RestController
-@RequestMapping("chambre")
+@RequestMapping("chambres")
 public class ChambreController {
 	private ChambreService chambreService;
 
@@ -27,5 +27,8 @@ public class ChambreController {
 		return this.chambreService.returnChambres();
 	}
 
-
+	@GetMapping(value = "available")
+	public List<Chambre> existsNumeroNotLike() {
+		return this.chambreService.existsNumeroNotLike();
+	}
 }

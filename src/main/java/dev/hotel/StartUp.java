@@ -63,8 +63,7 @@ public class StartUp {
 		if (this.clientRepository.count() == 0) {
 			List<Client> clients = Arrays.asList(new Client("Pierre", "Jean"), new Client("Pierre", "Melissa"),
 					new Client("Kerouac", "Jack"), new Client("Wataya", "Risa"), new Client("Balano", "Roberto"),
-					new Client("Burroughs", "William"), new Client("Pamuk", "Orhan"), new Client("Bukowski", "Charles"),
-					new Client("Jonasson", "Jonas"));
+					new Client("Pamuk", "Orhan"));
 			this.clientRepository.saveAll(clients);
 		}
 		if (this.reservationRepository.count() == 0) {
@@ -74,8 +73,8 @@ public class StartUp {
 			Reservation reservation = new Reservation();
 			reservation.setChambres(chambres);
 			reservation.setClient(client);
-			reservation.setDateDebut(LocalDate.of(2019, 10, 22));
-			reservation.setDateFin(LocalDate.of(2019, 11, 2));
+			reservation.setDateDebut(LocalDate.of(2020, 2, 12));
+			reservation.setDateFin(LocalDate.of(2020, 2, 28));
 			this.reservationRepository.save(reservation);
 		}
 	}

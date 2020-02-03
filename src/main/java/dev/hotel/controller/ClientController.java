@@ -22,7 +22,7 @@ import dev.hotel.entite.Client;
 import dev.hotel.service.ClientService;
 
 @RestController
-@RequestMapping("client")
+@RequestMapping("clients")
 public class ClientController {
 
 	private ClientService clientService;

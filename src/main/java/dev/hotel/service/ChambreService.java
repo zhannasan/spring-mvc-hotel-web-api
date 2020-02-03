@@ -20,6 +20,10 @@ public class ChambreService {
 	}
 
 	public List<Chambre> returnChambres() {
-		return this.chambreRepository.findAll();
+		return this.chambreRepository.findByOrderByNumeroAsc();
+	}
+
+	public List<Chambre> existsNumeroNotLike() {
+		return this.chambreRepository.existsNumeroNotLike();
 	}
 }
