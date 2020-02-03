@@ -8,7 +8,7 @@ Function.prototype.extend = function(fn) {
 
 window.onload = 
 function clientSelector(){
-	fetch('/client')
+	fetch('/clients')
 	    .then(function(response) {
 	        if (!response.ok) {
 	        	throw Error(response.statusText);
@@ -29,7 +29,7 @@ function clientSelector(){
 
 window.onload = window.onload.extend(
 function roomSelector(){
-    fetch('/chambre')
+    fetch('/chambres')
     .then(function(response) {
         if (!response.ok) {
         	throw Error(response.statusText);
@@ -80,9 +80,9 @@ function formSubmit(){
 		e.preventDefault();
 		
 		const formData = new FormData(this);
-		fetch('/reservation', {
+		fetch('/reservations', {
 			  method: 'post',
-			  body: formData,
+			  body: form,
 			})
 			.then((response) => response.text())
 			.then((text) => {
