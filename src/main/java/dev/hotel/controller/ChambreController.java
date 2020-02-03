@@ -33,7 +33,7 @@ public class ChambreController {
 		return this.chambreService.existsNumeroNotLike();
 	}
 
-	@GetMapping(value = "available", params = { "dateDebut", "dateFin" })
+	@GetMapping(params = { "dateDebut", "dateFin" })
 	public List<Chambre> returnChambresByDate(@RequestParam("dateDebut") String dateDebut,
 			@RequestParam("dateFin") String dateFin) {
 		return this.chambreService.returnChambresByDate(dateDebut, dateFin);
