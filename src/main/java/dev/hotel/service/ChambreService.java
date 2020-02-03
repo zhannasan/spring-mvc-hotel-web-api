@@ -26,4 +26,9 @@ public class ChambreService {
 	public List<Chambre> existsNumeroNotLike() {
 		return this.chambreRepository.existsNumeroNotLike();
 	}
+
+	public List<Chambre> returnChambresByDate(String dateDebut, String dateFin) {
+		return this.chambreRepository.findChambreByDateDebutFin(dateDebut, dateFin);
+
+	}
 }
