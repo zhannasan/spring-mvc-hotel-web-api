@@ -66,4 +66,13 @@ public class Reservation extends BaseEntite {
     public void setChambres(List<Chambre> chambres) {
         this.chambres = chambres;
     }
+
+	@Override
+	public String toString() {
+		String s = "";
+		for (Chambre c : this.chambres) {
+			s += c + " ";
+		}
+		return this.client + this.dateDebut.toString() + this.dateFin.toString() + s;
+	}
 }

@@ -39,7 +39,7 @@ function roomSelector(){
         .then(function(tableChambre) {
             var listChambre = tableChambre.map(function(chambre){
        	    	return ('<li><div><input type="checkbox" class="chambreCheckbox" id="'+chambre.uuid+'" >'+
-				'<label class="chambrelabel" for="'+chambre.uuid+'" value="'+chambre.uuid+'"> '+chambre.numero+' - '+chambre.surfaceEnM2+'sqm</label></div></li>');
+				'<label class="chambrelabel" for="'+chambre.uuid+'" value="'+chambre.uuid+'">'+' '+chambre.numero+' - '+chambre.surfaceEnM2+'sqm</label></div></li>');
             }).join('')
           document.querySelector('#options').innerHTML =listChambre ;
           
@@ -57,32 +57,62 @@ function roomSelector(){
         });
 })
 
-function getData(){
+function dateIn(){
+	var startDate = document.getElementById('formDateDebut').value;
+	var today = new Date().toJSON().slice(0,10);
+	var endDate = document.getElementById('formDateFin').value;
+
+	var x = document.getElementById("dateCIn");
+	if(startDate < today){
+	    x.style.display = "inline";
+		  } else {
+		    x.style.display = "none";
+		  }
+	}
+function dateOut(){
+	var startDate = document.getElementById('formDateDebut').value;
+	var today = new Date().toJSON().slice(0,10);
+	var endDate = document.getElementById('formDateFin').value;
+
+	var x = document.getElementById("dateCOut");
+	if(endDate < today || endDate<startDate){
+	    x.style.display = "inline";
+		  } else {
+		    x.style.display = "none";
+		  }
+	}
+
+function formSubmit(){
 	var clientId = document.getElementById('clientSelect').value;
 	var chambresId=[]; 
 	var checkBoxes = document.querySelectorAll('input[type="checkbox"]');
 	var j =0;
 	for(var i=0; checkBoxes[i]; ++i){
-	      if(checkBoxes[i].checked){
-	    	  chambresId[j] = checkBoxes[i].id;
-	        j++;
-	      }
+      if(checkBoxes[i].checked){
+    	  chambresId[j] = checkBoxes[i].id;
+        j++;
+      }
 	}
+	if(!chambresId){
+		document.getElementById("unchecked").style.display="inline"
+	}
+	
 	var startDate = document.getElementById('formDateDebut').value;
 	var endDate = document.getElementById('formDateFin').value;
-	const data = {dateDebut: startDate, dateFin: endDate,clientUuid: clientId, chambreUuid : chambresId}
-	console.log(data)
-}
-
-function formSubmit(){
+	
+	const data = {dateDebut: startDate, dateFin: endDate, clientUuid: clientId, chambreUuid : chambresId};
+	console.log(data);
+	
 	const form = document.getElementById('createReservForm');
 	form.addEventListener('submit', function(e){
 		e.preventDefault();
-		
-		const formData = new FormData(this);
 		fetch('/reservations', {
 			  method: 'post',
-			  body: form,
+			  headers: {
+	              'Accept': 'application/json, text/plain, */*',
+	              'Content-Type': 'application/json'
+	          },
+			  body: JSON.stringify({dateDebut: startDate, dateFin: endDate, clientUuid: clientId, chambreUuid : chambresId})
 			})
 			.then((response) => response.text())
 			.then((text) => {

@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import dev.hotel.dto.ReservationDTO;
+import dev.hotel.entite.Chambre;
 import dev.hotel.entite.Reservation;
 import dev.hotel.repository.ChambreRepository;
 import dev.hotel.repository.ClientRepository;
@@ -37,11 +38,13 @@ public class ReservationService {
 		ModelMapper modelMapper = new ModelMapper();
 		this.clientRepository.findById(reservationIn.getClientUuid())
 				.orElseThrow(() -> new EntityExistsException("No client found."));
-		reservationIn.getChambreUuid().stream()
+		List<Chambre> ch = reservationIn.getChambreUuid().stream()
 			.map(chambreUuid -> chambreRepository.findById(chambreUuid)
 				.orElseThrow(() -> new EntityExistsException("No chambre found.")))
 				.collect(Collectors.toList());
-		return this.reservationRepository.save(modelMapper.map(reservationIn, Reservation.class));
+		Reservation res = modelMapper.map(reservationIn, Reservation.class);
+		res.setChambres(ch);
+		return this.reservationRepository.save(res);
 	}
 
 	public List<Reservation> returnReservations() {

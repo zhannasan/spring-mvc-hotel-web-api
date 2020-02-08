@@ -5,7 +5,9 @@ import java.util.List;
 import javax.persistence.EntityNotFoundException;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import dev.hotel.dto.ReservationDTO;
 import dev.hotel.entite.Reservation;
 import dev.hotel.service.ReservationService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("reservations")
 public class ReservationController {
@@ -35,12 +38,11 @@ public class ReservationController {
 		return this.reservationService.returnReservations();
 	}
 
-
-
-	@PostMapping(params = "reservation") // (consumes =
-										// MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-					// produces = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ResponseEntity<Reservation> addReservation(@RequestParam("reservation") ReservationDTO reservationIn) {
+	@PostMapping(params = "reservations",
+	 consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces =
+	 MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	//@PostMapping
+	public ResponseEntity<Reservation> addReservation(@RequestParam("reservations") ReservationDTO reservationIn) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(this.reservationService.addReservation(reservationIn));
 	}
 

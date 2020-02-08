@@ -31,7 +31,7 @@
 		</div>
 		<div class="row mt-3">
 			<div class="col-10 offset-1">
-				<form name="createReserveForm" id="createReservForm"	action="reservation" method="post">
+				<form name="createReserveForm" id="createReservForm" action="reservation" method="post">
 
 					<div class="row mt-3">
 						<div class="col-10 offset-2">
@@ -63,11 +63,11 @@
 							<ul id="chkboxLi">
 							<div class="form-check pl-0" id="options">
 							</div>
+						<small class="form-text text-danger" id="unchecked" style="display:none">Choose a room</small>
 							</ul>
 						</div>
 					</div>
 					</div>
-					
 
 					<div class="row mt-3">
 
@@ -75,7 +75,8 @@
 							<label class="control-label" for="formCtrlDate">Check-in date</label>
 						</div>
 						<div class="col-5">
-							<input type="date" class="form-control" name="dateDebut" id="formDateDebut">
+							<input type="date" class="form-control" name="dateDebut" id="formDateDebut" onchange="dateIn()">
+						<small class="form-text text-danger" id="dateCIn" style="display:none">Choose a valid date</small>
 						</div>
 
 					</div>
@@ -85,15 +86,9 @@
 							<label class="control-label" for="formCtrlDate">Check-out date</label>
 						</div>
 						<div class="col-5">
-							<input type="date" class="form-control" name="dateFin" id="formDateFin">
+							<input type="date" class="form-control" name="dateFin" id="formDateFin" onchange="dateOut()">
+							<small class="form-text text-danger" id="dateCOut" style="display:none">Choose a valid date</small>
 						</div>
-					</div>
-
-					<div class="row mt-3">
-						<div class="col-3 offset-1 ">
-							<button type="button" id="show" onclick=" getData()">Get</button>
-						</div>
-						<input type="text" size="30" name="display" id="display" />
 					</div>
 
 					<div class="row mt-3">
