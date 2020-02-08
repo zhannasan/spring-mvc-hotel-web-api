@@ -108,10 +108,6 @@ function formSubmit(){
 		e.preventDefault();
 		fetch('/reservations', {
 			  method: 'post',
-			  headers: {
-	              'Accept': 'application/json, text/plain, */*',
-	              'Content-Type': 'application/json'
-	          },
 			  body: JSON.stringify({dateDebut: startDate, dateFin: endDate, clientUuid: clientId, chambreUuid : chambresId})
 			})
 			.then((response) => response.text())
